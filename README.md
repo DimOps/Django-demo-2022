@@ -1,2 +1,2 @@
 # Django-demo-2022
-SoftUni workshop app.
+SoftUni Petstagram app from Web Basics course 2022.
