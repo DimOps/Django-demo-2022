@@ -48,6 +48,10 @@ class Profile(models.Model):
         default=DO_NOT_SHOW
     )
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+
 class Pet(models.Model):
 
     CAT = 'Cat'
@@ -59,21 +63,49 @@ class Pet(models.Model):
 
     TYPE = [(x, x) for x in (CAT, DOG, BUNNY, PARROT, FISH, OTHER)]
 
-    #  ALL PETS MUST BE UNIQUE FOR A USER
     name = models.CharField(
         max_length=30,
-        null=False,
-        blank=False,
     )
 
     type = models.CharField(
         max_length=max(len(val) for val, _ in TYPE),
         choices=TYPE,
-        null=False,
-        blank=False,
     )
 
     date_of_birth = models.DateField(
         null=True,
         blank=True,
     )
+
+    user_profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        unique_together = ('user_profile', 'name')
+
+    def __str__(self):
+        return f'{self.type}: {self.name}'
+
+
+class PetPhoto(models.Model):
+
+    photo = models.ImageField()
+
+    tagged_animals = models.ManyToManyField(
+        Pet,
+    )
+
+    description = models.TextField(
+        null=True,
+        blank=True,
+    )
+
+    publication_date = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    #Apply likes
