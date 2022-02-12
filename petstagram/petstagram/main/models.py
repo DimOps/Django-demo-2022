@@ -47,3 +47,33 @@ class Profile(models.Model):
         choices=GENDERS,
         default=DO_NOT_SHOW
     )
+
+class Pet(models.Model):
+
+    CAT = 'Cat'
+    DOG = 'Dog'
+    BUNNY = 'Bunny'
+    PARROT = 'Parrot'
+    FISH = 'Fish'
+    OTHER = 'Other'
+
+    TYPE = [(x, x) for x in (CAT, DOG, BUNNY, PARROT, FISH, OTHER)]
+
+    #  ALL PETS MUST BE UNIQUE FOR A USER
+    name = models.CharField(
+        max_length=30,
+        null=False,
+        blank=False,
+    )
+
+    type = models.CharField(
+        max_length=max(len(val) for val, _ in TYPE),
+        choices=TYPE,
+        null=False,
+        blank=False,
+    )
+
+    date_of_birth = models.DateField(
+        null=True,
+        blank=True,
+    )
