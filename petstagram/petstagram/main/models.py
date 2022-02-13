@@ -108,4 +108,6 @@ class PetPhoto(models.Model):
         auto_now_add=True,
     )
 
-    #Apply likes
+    likes = models.IntegerField(
+        default=0,
+    )
