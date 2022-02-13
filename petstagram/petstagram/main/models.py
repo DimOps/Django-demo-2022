@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 
@@ -83,6 +85,10 @@ class Pet(models.Model):
         null=True,
         blank=True,
     )
+
+    @property
+    def age(self):
+        return datetime.datetime.now().year - self.date_of_birth.year
 
     class Meta:
         unique_together = ('user_profile', 'name')
