@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from petstagram.main.forms import ProfileForm
 from petstagram.main.models import PetPhoto
@@ -27,6 +27,7 @@ def create_profile(request):
         form = ProfileForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('index')
     else:
         form = ProfileForm()
 
