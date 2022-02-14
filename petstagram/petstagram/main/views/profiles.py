@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 
 from petstagram.main.forms import CreateProfileForm, EditProfileForm, DeleteProfileForm
-from petstagram.main.models import PetPhoto, Profile
+from petstagram.main.models import PetPhoto, Profile, Pet
 from petstagram.main.helpers import get_profile
 
 
 def display_profile_details(request):
     profile = get_profile()
+    pets = list(Pet.objects.filter(user_profile=profile))
     pet_photos = PetPhoto.objects\
         .filter(tagged_animals__user_profile=profile)\
         .distinct()
@@ -18,6 +19,7 @@ def display_profile_details(request):
         'profile': profile,
         'total_user_likes': total_user_likes,
         'total_user_pets_photos': total_user_pets_photos,
+        'pets': pets
     }
     return render(request, 'profile_details.html', context)
 
