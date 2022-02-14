@@ -5,9 +5,10 @@
             <h1>Are you sure you want to delete your profile?</h1>
             <div class="m-auto d-flex justify-content-center">
                 <div class="m-2">
-                    <form method="post" action="home_page.html">
+                    <form method="post" action="{% url 'delete profile' %}">
 
-                        <!-- For for Deleting a Profile -->
+                        {% csrf_token %}
+                        {{ form }}
 
                         <input type="submit" value="Confirm" class="btn btn-danger"/>
                     </form>
